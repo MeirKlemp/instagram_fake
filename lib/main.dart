@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_fake/pages/first_load.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,13 +11,17 @@ class MyApp extends StatelessWidget {
       title: 'Instagram',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-
-        primarySwatch: Colors.blue,
+        brightness: Brightness.light,
+        primaryColor: Colors.white,
+        accentColor: Colors.black,
+        backgroundColor: Colors.white,
       ),
       darkTheme: ThemeData(
-        
+        brightness: Brightness.dark,
       ),
-      home: Container(),
+      routes: {
+        "/": (context) => FirstLoad(),
+      }
     );
   }
 }
