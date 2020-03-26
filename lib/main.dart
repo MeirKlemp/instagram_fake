@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_fake/pages/first_load.dart';
+import 'package:instagram_fake/pages/start.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,9 +20,35 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
-      routes: {
-        "/": (context) => FirstLoad(),
+      onGenerateRoute: (RouteSettings settings) {
+        switch (settings.name) {
+          case '/start': return FadePageRoute(
+            builder: (_) => Start(),
+            settings: settings,
+          );
+          // main route '/'
+          default: return FadePageRoute(
+            builder: (_) => FirstLoad(),
+            settings: settings,
+          );
+        }
       }
     );
+  }
+}
+
+class FadePageRoute<T> extends MaterialPageRoute<T> {
+  FadePageRoute({ WidgetBuilder builder, RouteSettings settings })
+      : super(builder: builder, settings: settings);
+
+  @override
+  Widget buildTransitions(BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
+    if (settings.isInitialRoute)
+      return child;
+    // Fades between routes.
+    return new FadeTransition(opacity: animation, child: child);
   }
 }
