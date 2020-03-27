@@ -11,10 +11,6 @@ class EnterMenu extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 65.0),
-          child: Image.asset("assets/images/title.png"),
-        ),
         FlatButton(
           onPressed: onSignup,
           padding: const EdgeInsets.all(20.0),

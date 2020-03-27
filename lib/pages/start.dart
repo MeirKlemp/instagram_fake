@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_fake/widgets/enter_menu.dart';
+import 'package:instagram_fake/widgets/login.dart';
 
 class Start extends StatefulWidget {
   @override
@@ -7,7 +8,6 @@ class Start extends StatefulWidget {
 }
 
 class _LoginState extends State<Start> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,9 +19,19 @@ class _LoginState extends State<Start> {
               SizedBox.shrink(),
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: EnterMenu(
-                  onLogin: () {},
-                  onSignup: () {},
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 40.0, horizontal: 65.0),
+                      child: Image.asset("assets/images/title.png"),
+                    ),
+                    Login(),
+                    /*EnterMenu(
+                      onLogin: () {},
+                      onSignup: () {},
+                    ),*/
+                  ],
                 ),
               ),
               Column(
