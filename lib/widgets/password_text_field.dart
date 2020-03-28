@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
 class PasswordTextField extends StatefulWidget {
+  final void Function(String password) onTextChanged;
+  final void Function(String value) onSubmitted;
+
+  PasswordTextField({Key key, this.onTextChanged, this.onSubmitted}) : super(key: key);
+
   @override
   _PasswordTextFieldState createState() => _PasswordTextFieldState();
 }
 
 class _PasswordTextFieldState extends State<PasswordTextField> {
+  bool _obscure = true;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +29,9 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         children: <Widget>[
           Expanded(
             child: TextField(
-              obscureText: true,
+              onChanged: widget.onTextChanged,
+              onSubmitted: widget.onSubmitted,
+              obscureText: _obscure,
               decoration: new InputDecoration(
                 hintText: "Password",
                 hintStyle: TextStyle(color: Colors.grey),
@@ -31,8 +40,11 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
             ),
           ),
           IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.visibility),
+            onPressed: () => setState(() => _obscure = !_obscure),
+            icon: Icon(
+              _obscure ? Icons.visibility : Icons.visibility_off,
+              color: _obscure ? Colors.grey : Colors.blue,
+            ),
           ),
         ],
       ),

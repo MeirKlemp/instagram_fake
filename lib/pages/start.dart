@@ -8,6 +8,8 @@ class Start extends StatefulWidget {
 }
 
 class _LoginState extends State<Start> {
+  bool _login = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,11 +28,11 @@ class _LoginState extends State<Start> {
                           vertical: 40.0, horizontal: 65.0),
                       child: Image.asset("assets/images/title.png"),
                     ),
-                    Login(),
-                    /*EnterMenu(
-                      onLogin: () {},
+                    _login ? Login() :
+                    EnterMenu(
+                      onLogin: () => setState(() => _login = true),
                       onSignup: () {},
-                    ),*/
+                    ),
                   ],
                 ),
               ),

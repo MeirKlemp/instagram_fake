@@ -11,12 +11,18 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  String _username = "";
+  String _password = "";
+
+  bool get _canLogin => _username != "" && _password != "";
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         TextField(
+          onChanged: (username) => setState(() => _username = username),
           decoration: new InputDecoration(
             hintText: "Phone number, email or username",
             hintStyle: TextStyle(color: Colors.grey),
@@ -29,10 +35,16 @@ class _LoginState extends State<Login> {
           ),
         ),
         SizedBox(height: 15.0),
-        PasswordTextField(),
+        PasswordTextField(
+          onTextChanged: (password) => setState(() => _password = password),
+          onSubmitted: (password) {
+            if (_canLogin) widget.onLogin(_username, _password);
+          },
+        ),
         SizedBox(height: 15.0),
         FlatButton(
-          onPressed: null,
+          onPressed:
+              _canLogin ? () => widget.onLogin(_username, _password) : null,
           padding: const EdgeInsets.all(20.0),
           color: Colors.blue,
           disabledColor: Colors.blue[200],
