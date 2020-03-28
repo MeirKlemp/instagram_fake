@@ -35,29 +35,48 @@ class _LoginState extends State<Start> {
         ],
       ),
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 40.0, horizontal: 65.0),
-                  child: _title,
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          children: <Widget>[
+            Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 40.0, horizontal: 65.0),
+                      child: _title,
+                    ),
+                    _login
+                        ? Login(
+                            onLogin: (username, password) {
+                              print("Username: $username, Password: $password");
+                            },
+                          )
+                        : EnterMenu(
+                            onLogin: () => setState(() => _login = true),
+                            onSignup: () {},
+                          ),
+                  ],
                 ),
-                _login
-                    ? Login(
-                        onLogin: (username, password) {
-                          print ("Username: $username, Password: $password");
-                        },
-                      )
-                    : EnterMenu(
-                        onLogin: () => setState(() => _login = true),
-                        onSignup: () {},
-                      ),
-              ],
+              ),
             ),
-          ),
+            Container(
+              width: 150.0,
+              height: 150.0,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 1,
+                  color: Colors.grey[400],
+                  style: BorderStyle.solid,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+              ),
+              child: Center(child: Text("Loading")),
+            ),
+          ],
         ),
       ),
     );
