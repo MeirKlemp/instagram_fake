@@ -16,9 +16,14 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         accentColor: Colors.black,
         backgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.white,
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
+        primaryColor: Colors.black,
+        accentColor: Colors.white,
+        backgroundColor: Colors.black,
+        scaffoldBackgroundColor: Colors.black,
       ),
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {

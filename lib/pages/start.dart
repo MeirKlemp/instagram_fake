@@ -10,48 +10,53 @@ class Start extends StatefulWidget {
 class _LoginState extends State<Start> {
   bool _login = false;
 
+  Image get _title =>
+      Image.asset(Theme.of(context).brightness == Brightness.light
+          ? "assets/images/title_light_mode.png"
+          : "assets/images/title_dark_mode.png");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Stack(
+        alignment: AlignmentDirectional.topCenter,
+        children: <Widget>[
+          Divider(color: Colors.grey[400]),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Text(
+              "Instagram from Facebook",
+              style: TextStyle(
+                letterSpacing: 1.5,
+                color: Colors.grey[700],
+              ),
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              SizedBox.shrink(),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 40.0, horizontal: 65.0),
-                      child: Image.asset("assets/images/title.png"),
-                    ),
-                    _login ? Login() :
-                    EnterMenu(
-                      onLogin: () => setState(() => _login = true),
-                      onSignup: () {},
-                    ),
-                  ],
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 40.0, horizontal: 65.0),
+                  child: _title,
                 ),
-              ),
-              Column(
-                children: <Widget>[
-                  Divider(color: Colors.grey[400]),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      "Instagram from Facebook",
-                      style: TextStyle(
-                        letterSpacing: 1.5,
-                        color: Colors.grey[700],
+                _login
+                    ? Login(
+                        onLogin: (username, password) {
+                          print ("Username: $username, Password: $password");
+                        },
+                      )
+                    : EnterMenu(
+                        onLogin: () => setState(() => _login = true),
+                        onSignup: () {},
                       ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
