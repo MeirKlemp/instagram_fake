@@ -53,7 +53,7 @@ class _LoginState extends State<Login> {
         ),
         SizedBox(height: 15.0),
         FlatButton(
-          onPressed: _canLogin ? _login : null,
+          onPressed: !_loading && _canLogin ? _login : null,
           padding: const EdgeInsets.all(15.0),
           color: Colors.blue,
           disabledColor: Colors.blue[200],
