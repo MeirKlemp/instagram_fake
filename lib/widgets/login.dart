@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'package:instagram_fake/widgets/password_text_field.dart';
 
 class Login extends StatefulWidget {
@@ -13,8 +14,17 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   String _username = "";
   String _password = "";
+  bool _loading = false;
 
   bool get _canLogin => _username != "" && _password != "";
+
+  void _login() {
+    setState(() => _loading = true);
+    Timer(Duration(seconds: 3), () {
+      widget.onLogin(_username, _password);
+      setState(() => _loading = false);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,25 +48,34 @@ class _LoginState extends State<Login> {
         PasswordTextField(
           onTextChanged: (password) => setState(() => _password = password),
           onSubmitted: (password) {
-            if (_canLogin) widget.onLogin(_username, _password);
+            if (_canLogin) _login();
           },
         ),
         SizedBox(height: 15.0),
         FlatButton(
-          onPressed:
-              _canLogin ? () => widget.onLogin(_username, _password) : null,
-          padding: const EdgeInsets.all(20.0),
+          onPressed: _canLogin ? _login : null,
+          padding: const EdgeInsets.all(15.0),
           color: Colors.blue,
           disabledColor: Colors.blue[200],
           splashColor: Colors.transparent,
-          child: Text(
-            "Log In",
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1.1,
-            ),
-          ),
+          child: _loading
+              ? SizedBox(
+                  width: 20.0,
+                  height: 20.0,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3.0,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
+                )
+              : Text(
+                  "Log In",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                    letterSpacing: 1.1,
+                  ),
+                ),
           shape: RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(6.0),
               side: BorderSide(color: Colors.transparent)),
