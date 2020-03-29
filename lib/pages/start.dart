@@ -18,67 +18,63 @@ class _LoginState extends State<Start> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Stack(
-        alignment: AlignmentDirectional.topCenter,
-        children: <Widget>[
-          Divider(color: Colors.grey[400]),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Text(
-              "Instagram from Facebook",
-              style: TextStyle(
-                letterSpacing: 1.5,
-                color: Colors.grey[700],
+      body: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: constraints.copyWith(
+              minHeight: constraints.maxHeight,
+              maxHeight: double.infinity,
+            ),
+            child: IntrinsicHeight(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  SizedBox.shrink(),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 40.0, horizontal: 65.0),
+                          child: _title,
+                        ),
+                        _login
+                            ? Login(
+                                onLogin: (username, password) {
+                                  print(
+                                      "Username: $username, Password: $password");
+                                },
+                              )
+                            : EnterMenu(
+                                onLogin: () => setState(() => _login = true),
+                                onSignup: () {},
+                              ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Divider(color: Colors.grey[400]),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                          "Instagram from Facebook",
+                          style: TextStyle(
+                            letterSpacing: 1.5,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
-        ],
-      ),
-      body: SafeArea(
-        child: Stack(
-          alignment: AlignmentDirectional.center,
-          children: <Widget>[
-            Center(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 40.0, horizontal: 65.0),
-                      child: _title,
-                    ),
-                    _login
-                        ? Login(
-                            onLogin: (username, password) {
-                              print("Username: $username, Password: $password");
-                            },
-                          )
-                        : EnterMenu(
-                            onLogin: () => setState(() => _login = true),
-                            onSignup: () {},
-                          ),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              width: 150.0,
-              height: 150.0,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1,
-                  color: Colors.grey[400],
-                  style: BorderStyle.solid,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.white,
-              ),
-              child: Center(child: Text("Loading")),
-            ),
-          ],
-        ),
-      ),
+        );
+      }),
     );
   }
 }
