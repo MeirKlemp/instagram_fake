@@ -45,6 +45,26 @@ class _LoginState extends State<Start> {
                                 onLogin: (username, password) {
                                   print(
                                       "Username: $username, Password: $password");
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text("Can't Find Account"),
+                                          content: Text(
+                                              "We can't find an account with $username. Try another phone number or email."),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              onPressed: () =>
+                                                  Navigator.of(context).pop(),
+                                              child: Text(
+                                                "Try Again",
+                                                style: TextStyle(
+                                                    color: Colors.blue),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      });
                                 },
                               )
                             : EnterMenu(
