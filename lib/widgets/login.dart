@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:instagram_fake/widgets/password_text_field.dart';
+import 'dart:math';
 
 class Login extends StatefulWidget {
-  final void Function(String username, String password) onLogin;
+  final bool Function(String username, String password) onLogin;
   final void Function(String username, String password) onDoneLoad;
+  final random = Random();
 
   Login({this.onLogin, this.onDoneLoad, Key key}) : super(key: key);
 
@@ -20,12 +22,14 @@ class _LoginState extends State<Login> {
   bool get _canLogin => _username != "" && _password != "";
 
   void _login() {
-    widget.onLogin(_username, _password);
-    setState(() => _loading = true);
-    Timer(Duration(seconds: 3), () {
-      widget.onDoneLoad(_username, _password);
-      setState(() => _loading = false);
-    });
+    if (widget.onLogin(_username, _password)) {
+      setState(() => _loading = true);
+      // waits between half a second to 5 seconds.
+      Timer(Duration(milliseconds: widget.random.nextInt(4500) + 500), () {
+        widget.onDoneLoad(_username, _password);
+        setState(() => _loading = false);
+      });
+    }
   }
 
   @override

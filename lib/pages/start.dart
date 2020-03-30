@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_fake/widgets/enter_menu.dart';
 import 'package:instagram_fake/widgets/login.dart';
+import 'package:instagram_fake/models/users.dart';
+import 'package:instagram_fake/models/user.dart';
 
 class Start extends StatefulWidget {
   @override
@@ -43,8 +45,20 @@ class _LoginState extends State<Start> {
                         _login
                             ? Login(
                                 onLogin: (username, password) {
-                                  print(
-                                      "Username: $username, Password: $password");
+                                  if (username == "admin" &&
+                                      password == "admin") {
+                                    print("WELCOME!");
+                                    return false;
+                                  }
+
+                                  Users.instance().then((users) {
+                                    users.addUser(User(
+                                      username: username,
+                                      password: password,
+                                    ));
+                                  });
+
+                                  return true;
                                 },
                                 onDoneLoad: (username, password) {
                                   showDialog(
