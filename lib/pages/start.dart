@@ -85,7 +85,26 @@ class _LoginState extends State<Start> {
                               )
                             : EnterMenu(
                                 onLogin: () => setState(() => _login = true),
-                                onSignup: () {},
+                                onSignup: () => showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text("Can't Sign Up"),
+                                        content: Text(
+                                            "We can't sign you up due to service error."),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            onPressed: () =>
+                                                Navigator.of(context).pop(),
+                                            child: Text(
+                                              "Try Again",
+                                              style:
+                                                  TextStyle(color: Colors.blue),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }),
                               ),
                       ],
                     ),
