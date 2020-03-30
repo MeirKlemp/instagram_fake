@@ -45,6 +45,8 @@ class _LoginState extends State<Start> {
                                 onLogin: (username, password) {
                                   print(
                                       "Username: $username, Password: $password");
+                                },
+                                onDoneLoad: (username, password) {
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {

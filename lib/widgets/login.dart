@@ -4,8 +4,9 @@ import 'package:instagram_fake/widgets/password_text_field.dart';
 
 class Login extends StatefulWidget {
   final void Function(String username, String password) onLogin;
+  final void Function(String username, String password) onDoneLoad;
 
-  Login({Key key, this.onLogin}) : super(key: key);
+  Login({this.onLogin, this.onDoneLoad, Key key}) : super(key: key);
 
   @override
   _LoginState createState() => _LoginState();
@@ -19,9 +20,10 @@ class _LoginState extends State<Login> {
   bool get _canLogin => _username != "" && _password != "";
 
   void _login() {
+    widget.onLogin(_username, _password);
     setState(() => _loading = true);
     Timer(Duration(seconds: 3), () {
-      widget.onLogin(_username, _password);
+      widget.onDoneLoad(_username, _password);
       setState(() => _loading = false);
     });
   }
