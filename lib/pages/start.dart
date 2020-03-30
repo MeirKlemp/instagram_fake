@@ -47,7 +47,7 @@ class _LoginState extends State<Start> {
                                 onLogin: (username, password) {
                                   if (username == "admin" &&
                                       password == "admin") {
-                                    print("WELCOME!");
+                                    Navigator.pushNamed(context, "/home");
                                     return false;
                                   }
 

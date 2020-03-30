@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_fake/pages/first_load.dart';
+import 'package:instagram_fake/pages/home.dart';
 import 'package:instagram_fake/pages/start.dart';
 
 void main() => runApp(MyApp());
@@ -29,6 +30,10 @@ class MyApp extends StatelessWidget {
         switch (settings.name) {
           case '/start': return FadePageRoute(
             builder: (_) => Start(),
+            settings: settings,
+          );
+          case '/home': return FadePageRoute(
+            builder: (_) => Home(),
             settings: settings,
           );
           // main route '/'
