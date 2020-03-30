@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_fake/models/users.dart';
+import 'package:instagram_fake/widgets/user_card.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -8,6 +9,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Users _users;
+  bool _deleting = false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +22,29 @@ class _HomeState extends State<Home> {
         )),
       );
     }
+
     return Scaffold(
-      body: SafeArea(
-        child: ListView.builder(
-          itemCount: _users.length,
-          itemBuilder: (context, index) {
-            return Card(child: Text("${_users[index]}"));
-          },
-        ),
+      appBar: AppBar(
+        title: Text("Instagram Fake"),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            onPressed: () => setState(() => _deleting = !_deleting),
+            icon:Icon( _deleting ? Icons.done : Icons.delete),
+          ),
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: _users.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 1.0),
+            child: UserCard(
+              user: _users[index],
+              deleting: _deleting,
+            ),
+          );
+        },
       ),
     );
   }
