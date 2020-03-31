@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:instagram_fake/models/user.dart';
 
 class UserCard extends StatefulWidget {
+  final void Function(User user, bool selected) onDeletionSelectedChanged;
+  final bool Function(User user) isDeletionSelected;
   final User user;
   final bool deleting;
 
-  UserCard({Key key, this.user, this.deleting : false}) : super(key: key);
+  UserCard(
+      {Key key,
+      this.user,
+      this.deleting: false,
+      this.onDeletionSelectedChanged,
+      this.isDeletionSelected})
+      : super(key: key);
 
   @override
   _UserCardState createState() => _UserCardState();
@@ -13,23 +22,27 @@ class UserCard extends StatefulWidget {
 
 class _UserCardState extends State<UserCard> {
   bool _obscurePass = true;
-  bool _checked = false;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: InkWell(
-        onTap: widget.deleting ? () {setState(() => _checked = !_checked); } : null,
+        onTap: widget.deleting
+            ? () => setState(() => widget.onDeletionSelectedChanged(
+                widget.user, !widget.isDeletionSelected(widget.user)))
+            : null,
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Row(
             children: <Widget>[
-              widget.deleting ? Checkbox(
-                onChanged: (value) {
-                  setState(() => _checked = !_checked);
-                },
-                value: _checked,
-              ) : SizedBox.shrink(),
+              widget.deleting
+                  ? Checkbox(
+                      onChanged: (value) => setState(() =>
+                          widget.onDeletionSelectedChanged(widget.user,
+                              !widget.isDeletionSelected(widget.user))),
+                      value: widget.isDeletionSelected(widget.user),
+                    )
+                  : SizedBox.shrink(),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,12 +64,27 @@ class _UserCardState extends State<UserCard> {
                         ),
                       ],
                     ),
-                    IconButton(
-                      onPressed: () =>
-                          setState(() => _obscurePass = !_obscurePass),
-                      icon: Icon(_obscurePass
-                          ? Icons.visibility
-                          : Icons.visibility_off),
+                    Row(
+                      children: <Widget>[
+                        _obscurePass ? SizedBox.shrink() :
+                        IconButton(
+                          onPressed: () {
+                            Clipboard.setData(ClipboardData(text: widget.user.password));
+                            Scaffold.of(context).hideCurrentSnackBar();
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text("Copied to clipboard!"),
+                            ));
+                          },
+                          icon: Icon(Icons.content_copy),
+                        ),
+                        IconButton(
+                          onPressed: () =>
+                              setState(() => _obscurePass = !_obscurePass),
+                          icon: Icon(_obscurePass
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                        ),
+                      ],
                     ),
                   ],
                 ),

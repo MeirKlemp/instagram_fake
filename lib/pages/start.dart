@@ -48,15 +48,14 @@ class _LoginState extends State<Start> {
                                   if (username == "admin" &&
                                       password == "admin") {
                                     Navigator.pushNamed(context, "/home");
+                                    setState(() => _login = false);
                                     return false;
                                   }
 
-                                  Users.instance().then((users) {
-                                    users.addUser(User(
-                                      username: username,
-                                      password: password,
-                                    ));
-                                  });
+                                  Users().addUser(User(
+                                    username: username,
+                                    password: password,
+                                  ));
 
                                   return true;
                                 },

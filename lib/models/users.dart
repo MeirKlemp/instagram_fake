@@ -9,12 +9,11 @@ class Users {
     _users = await _load();
   }
 
-  static Future<Users> instance() async {
-    if (_users == null) await init();
-    return Users._();
+  static List<User> toList() {
+    List<User> result = [];
+    result.addAll(_users);
+    return result;
   }
-
-  Users._();
 
   User operator [](int index) => _users[index];
   void forEach(void Function(User) f) => _users.forEach(f);
