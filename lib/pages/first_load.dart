@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:instagram_fake/models/users.dart';
 
-
 class FirstLoad extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -22,27 +21,14 @@ class FirstLoad extends StatelessWidget {
               children: <Widget>[
                 SizedBox(height: 50.0),
                 SizedBox(
-                    width: 75.0,
-                    height: 75.0,
-                    child: Image.asset("assets/images/logo.png")),
-                Column(
-                  children: <Widget>[
-                    Text(
-                      "from",
-                      style: TextStyle(
-                        letterSpacing: 1.5,
-                        color: Colors.grey[700],
-                      ),
-                    ),
-                    Text(
-                      "FACEBOOK",
-                      style: TextStyle(
-                        letterSpacing: 1.5,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue[900],
-                      ),
-                    ),
-                  ],
+                  width: 75.0,
+                  height: 75.0,
+                  child: Image.asset("assets/images/logo.png"),
+                ),
+                SizedBox(
+                  width: 100.0,
+                  height: 32.25,
+                  child: Image.asset("assets/images/from_facebook_gradient.png"),
                 ),
               ],
             ),
