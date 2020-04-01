@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:instagram_fake/models/users.dart';
 
 class FirstLoad extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Users.init();
 
     Timer(Duration(seconds: 2), () {
       Navigator.pushReplacementNamed(context, "/start");

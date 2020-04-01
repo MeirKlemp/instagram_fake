@@ -43,10 +43,10 @@ class _LoginState extends State<Login> {
             hintText: "Phone number, email or username",
             hintStyle: TextStyle(color: Colors.grey),
             enabledBorder: const OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.grey, width: 0.6),
+              borderSide: const BorderSide(color: Colors.grey, width: 0.5),
             ),
             focusedBorder: const OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.grey, width: 0.6),
+              borderSide: const BorderSide(color: Colors.grey, width: 0.5),
             ),
           ),
         ),

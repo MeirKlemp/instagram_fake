@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_fake/models/users.dart';
 import 'package:instagram_fake/pages/first_load.dart';
 import 'package:instagram_fake/pages/home.dart';
 import 'package:instagram_fake/pages/start.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  await Users.init();
+  return runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of the application.
@@ -24,9 +28,10 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.white,
           scaffoldBackgroundColor: Colors.black,
         ),
+        initialRoute: '/',
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
-            case '/start':
+            case '/':
               return FadePageRoute(
                 builder: (_) => Start(),
                 settings: settings,

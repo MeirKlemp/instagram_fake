@@ -20,8 +20,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(5)),
         border: Border.all(
-          width: 1,
-          color: Colors.grey[400],
+          width: 0.5,
+          color: Colors.grey,
           style: BorderStyle.solid,
         ),
       ),
