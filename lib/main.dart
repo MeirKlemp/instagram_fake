@@ -4,18 +4,18 @@ import 'package:instagram_fake/pages/first_load.dart';
 import 'package:instagram_fake/pages/home.dart';
 import 'package:instagram_fake/pages/start.dart';
 
-Future<void> main() async {
-  await Users.init();
-  return runApp(MyApp());
+void main() {
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
+    Users.init();
     return MaterialApp(
         title: 'Instagram',
-        debugShowCheckedModeBanner: false,
+        // debugShowCheckedModeBanner: false,
         theme: ThemeData(
           brightness: Brightness.light,
           primaryColor: Colors.white,
